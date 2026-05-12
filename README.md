@@ -14,48 +14,18 @@ To write a python program to find the rank of a matrix
 ## Program:
 
 ```
-def matrix_rank(A):
-    A = [list(map(float, row)) for row in A]
-    m, n = len(A), len(A[0])
-    rank = 0
+import os
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
+import numpy as np
+A = np.array([[1, 2, 3],[3, 6, 9]])
+rank = np.linalg.matrix_rank(A)
+print(rank)
 
-    for col in range(n):
-        pivot = None
-        for row in range(rank, m):
-            if abs(A[row][col]) > 1e-10:
-                pivot = row
-                break
-
-        if pivot is None:
-            continue
-
-        A[rank], A[pivot] = A[pivot], A[rank]
-
-        pivot_val = A[rank][col]
-        for j in range(col, n):
-            A[rank][j] /= pivot_val
-
-        for i in range(m):
-            if i != rank:
-                factor = A[i][col]
-                for j in range(col, n):
-                    A[i][j] -= factor * A[rank][j]
-
-        rank += 1
-
-    return rank
-
-
-A = [[3, 2, 5],
-     [1, 1, 2],
-     [3, 3, 6]]
-
-print(matrix_rank(A))
 ```
 
 ## Output:
 
-<img width="1502" height="985" alt="image" src="https://github.com/user-attachments/assets/eca6da18-3611-499f-8dc5-c37501bec9ca" />
+<img width="1482" height="912" alt="image" src="https://github.com/user-attachments/assets/13326396-40e6-4b6b-8764-b4588484caa5" />
 
 
 ## Result:
